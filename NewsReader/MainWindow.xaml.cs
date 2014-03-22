@@ -213,11 +213,14 @@ namespace NewsReader
 
             if (url != null)
             {
-                //System.Diagnostics.Process.Start(url);
+                System.Diagnostics.Process.Start(url);
+
+                /*
                 NewsDetail sub = new NewsDetail();
                 sub.Owner = this;
                 sub.browserNews.NavigateToString(GetNewsDetailHtml(url));
                 sub.Show();
+                 */
             }
         }
 
