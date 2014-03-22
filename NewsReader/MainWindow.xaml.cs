@@ -209,12 +209,62 @@ namespace NewsReader
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Label labelNewsDetail = (Label)sender;
-            string href = (string)labelNewsDetail.Tag;
+            string url = (string)labelNewsDetail.Tag;
 
-            if (href != null)
+            if (url != null)
             {
-                System.Diagnostics.Process.Start(href);
+                //System.Diagnostics.Process.Start(url);
+                NewsDetail sub = new NewsDetail();
+                sub.Owner = this;
+                sub.browserNews.NavigateToString(GetNewsDetailHtml(url));
+                sub.Show();
             }
+        }
+
+        private string GetNewsDetailHtml(string url)
+        {
+            string newsHtml = string.Empty;
+
+            try
+            {
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+                HttpWebResponse res = (HttpWebResponse)req.GetResponse();
+
+                string textHtml;
+                
+
+                using (Stream stream = res.GetResponseStream())
+                using (StreamReader reader = new StreamReader(stream, Encoding.GetEncoding("euc-jp")))
+                {
+                    textHtml = reader.ReadToEnd();
+                }
+
+
+                HtmlDocument html = new HtmlDocument();
+                html.LoadHtml(textHtml);
+
+                foreach (HtmlNode node in html.DocumentNode.SelectNodes("//*[@id=\"ynDetail\"]"))
+                {
+                    newsHtml = node.InnerHtml;
+                }
+            }
+            catch
+            {
+                //リトライ
+            }
+
+            StringBuilder buf = new StringBuilder();
+            buf.Append("<!DOCTYPE html>");
+            buf.Append("<html lang=\"jp\">");
+            buf.Append("<head>");
+            buf.Append("<meta charset=\"UTF-8\">");
+            buf.Append("</head>");
+            buf.Append("<body>");
+            buf.Append(newsHtml);
+            buf.Append("</body>");
+            buf.Append("</html>");
+
+            return buf.ToString();
         }
 
 
