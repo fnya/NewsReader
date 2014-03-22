@@ -37,7 +37,7 @@
             </TextBlock>
         </ScrollViewer>
         <Label x:Name="LabelNewsDetail" Content="記事全文を見る" Height="24.666" Margin="0,357.28,12,-381.946" VerticalAlignment="Top" Foreground="White" BorderThickness="0,0,0,1" BorderBrush="#FFECEAEA" MouseDown="Label_MouseDown" HorizontalAlignment="Right" Width="91.667"/>
-        <Label Content="Ver 0.1" HorizontalAlignment="Right" Height="21.999" Margin="0,11.334,8.666,-33.333" Width="41.333" Foreground="White" FontSize="8" VerticalAlignment="Top"/>
+        <Label Content="Ver 0.2" HorizontalAlignment="Right" Height="21.999" Margin="0,11.334,8.666,-33.333" Width="41.333" Foreground="White" FontSize="8" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
